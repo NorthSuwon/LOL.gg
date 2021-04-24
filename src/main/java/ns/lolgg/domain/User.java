@@ -20,7 +20,7 @@ import lombok.Setter;
 @Getter
 @Setter
 
-@Entity
+@Entity(name = "LOL_USER")
 public class User {
 	
 	@Id
