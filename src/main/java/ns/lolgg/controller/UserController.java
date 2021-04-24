@@ -22,10 +22,10 @@ public class UserController {
 	private UserService userService;
 
 	@PostMapping("/login")
-	public String login(@RequestBody Map<String, String> map, Model model) {
+	public String login(Map<String, String> map, Model model) {
 
-		User user = userService.findUserById(map.get("userId"));
-		if (user == null || !userService.checkUserPassword(user, map.get("password"))) {
+		User user = userService.findUserById(map.get("uid"));
+		if (user == null || !userService.checkUserPassword(user, map.get("userpassword"))) {
 			return "redirect:login.html";
 		}
 

@@ -1,8 +1,6 @@
 package ns.lolgg.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import ns.lolgg.dao.UserRepository;
@@ -14,8 +12,6 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepo;
 
-	private PasswordEncoder encoder = new BCryptPasswordEncoder();
-
 	// 유저 찾기
 	public User findUserById(String userId) {
 		
@@ -25,7 +21,7 @@ public class UserService {
 	// 비밀번호 확인
 	public boolean checkUserPassword(User user, String password) {
 
-		if (encoder.matches(password, user.getUserPassword())) {
+		if (password.equals(user.getUserPassword())) {
 			return true;
 		}
 		return false;
@@ -33,8 +29,6 @@ public class UserService {
 
 	// 회원가입
 	public void registerUser(User user) {
-		
-		user.setUserPassword(encoder.encode(user.getUserPassword()));
 		userRepo.save(user);
 	}
 }
