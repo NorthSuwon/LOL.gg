@@ -1,17 +1,17 @@
 package ns.lolgg.controller;
 
-import java.util.Map;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import ns.lolgg.domain.User;
+import ns.lolgg.dto.UserDTO.UserLogin;
+import ns.lolgg.dto.UserDTO.UserRegi;
 import ns.lolgg.service.UserService;
 
 @SessionAttributes("user")
@@ -21,28 +21,42 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@PostMapping("/login")
-	public String login(Map<String, String> map, Model model) {
-
-		User user = userService.findUserById(map.get("uid"));
-		if (user == null || !userService.checkUserPassword(user, map.get("userpassword"))) {
-			return "redirect:login.html";
+	@PostMapping("/logins")
+	public String login(UserLogin userLogin, HttpSession session) {
+		User user = userService.findUserById(userLogin.getId());
+		if (user == null || !userService.checkUserPassword(user, userLogin.getPassword())) {
+			return "redirect:login";
 		}
 
-		model.addAttribute("user", user);
-		return "forward:index.html";
+		session.setAttribute("user", user);
+		return "index";
 	}
+	
+	@GetMapping("/login")
+	public String loginpage() {
+		return "login";
+	}
+	
 
 	@GetMapping("/logout")
 	public String logout(SessionStatus status) {
 		status.setComplete();
-		return "redirect:index.html";
+		return "redirect:/";
 	}
 
 	@PostMapping("/signin")
-	public String signin(@RequestBody User user) {
-		userService.registerUser(user);
-		return "redirect:index.html";
+	public String signin(UserRegi user) {
+		userService.registerUser(user.toEntity());
+		return "redirect:login";
 	}
-
+	
+	@GetMapping("/signin")
+	public String signinpage() {
+		return "signin";
+	}
+	
+	@GetMapping("/")
+	public String home() {
+		return "index";
+	}
 }

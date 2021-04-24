@@ -1,3 +1,6 @@
+<%@page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <html>
 
 <head>
@@ -29,36 +32,23 @@
                         <a class="nav-link" href="/board/">듀오구함<span class="sr-only">(current)</span></a>
                     </li>
                     <!-- <li class="nav-item active">
-                        <a class="nav-link" href="/annotation/"><span class="sr-only">(current)</span></a>
-                    </li> -->
+                            <a class="nav-link" href="/annotation/"><span class="sr-only">(current)</span></a>
+                        </li> -->
                 </ul>
                 <form class="form-inline my-3 my-lg-1">
-                    {% if username != None %}
-                    <a class="nav-link disabled" style="color:white;" href="#">{{ username }} 님 반갑습니다.</a>
-                    <button type="button" class="btn btn-outline-success my-2 my-sm-0"
-                        onclick="location.href='/logout/'">로그아웃</button>
-                    {% else %}
-                    <a class="nav-link" style="color:white;" href="/register/">회원이 아니신가요?</a>
-                    <button type="button" class="btn btn-outline-success my-2 my-sm-0"
-                        onclick="location.href='/login.html'">로그인</button>
-                    {% endif %}
+                    <c:if test="${user!=null}">
+                        <a class="nav-link disabled" style="color:white;" href="#">${user.userId} 님 반갑습니다.</a>
+                        <button type="button" class="btn btn-outline-success my-2 my-sm-0"
+                            onclick="location.href='/logout/'">로그아웃</button>
+                    </c:if>
+                    <c:if test="${user==null}">
+                        <a class="nav-link" style="color:white;" href="/signin/">회원이 아니신가요?</a>
+                        <button type="button" class="btn btn-outline-success my-2 my-sm-0"
+                            onclick="location.href='/login'">로그인</button>
+                    </c:if>
                 </form>
             </div>
     </header>
 </head>
-
-<!-- <body class="d-flex flex-column h-100"> -->
-
-<body>
-    <div class="container" style="padding-top:300px;">
-        <div class="form-group">
-            <form class="row" method="post" enctype="multipart/form-data" novalidate>
-                <input type="text" class="form-control col-md-5" id="search" placeholder="소환사명, 소환사명 …"
-                    name="summoner-search-form__text _suggest" />
-                <button class="btn btn-primary col-md-2 ml-3" type="submit" id="search">검색하기</button>
-            </form>
-        </div>
-    </div>
-</body>
 
 </html>
