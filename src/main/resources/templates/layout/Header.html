@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<header th:fragment="mainheader">
+	<div class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+		<a class="navbar-brand" href="/">LOL.GG</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active"><a class="nav-link"
+					href="/predict/">전적조회<span class="sr-only">(current)</span></a></li>
+				<li class="nav-item active"><a class="nav-link" href="/board/">듀오구함<span
+						class="sr-only">(current)</span></a></li>
+				<!-- <li class="nav-item active">
+                            <a class="nav-link" href="/annotation/"><span class="sr-only">(current)</span></a>
+                        </li> -->
+			</ul>
+
+			<form class="form-inline my-3 my-lg-1">
+				<div sec:authorize="authenticated" class="row mr-3">
+					<a class="nav-link disabled" style="color: white;" href="#">${user.userId}
+						님 반갑습니다.</a>
+					<form th:action="@{/logout}" method="post">
+						<button class="btn btn-outline-success my-2 my-sm-0" type="submit">로그아웃</button>
+					</form>
+				</div>
+				<div sec:authorize="!authenticated" class="row mr-3">
+					<a class="nav-link" style="color: white;" href="/signin">회원이
+						아니신가요?</a>
+					<button type="button" class="btn btn-outline-success my-2 my-sm-0"
+						onclick="location.href='/login'">로그인</button>
+				</div>
+			</form>
+
+		</div>
+</header>
+</html>

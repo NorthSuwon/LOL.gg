@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head th:replace="layout/Config :: common_head"></head>
+<header th:replace="layout/Header :: mainheader"></header>
+<body>
+	<div class="container center-contents" style="padding-top:300px;">
+	<div class="row">
+	<div class="col-md-4"></div>
+		<form class="form-signin col-md-4" method="post" th:action="@{/login}">
+			<h1 class="h3 mb-3 font-weight-normal">로그인</h1>
+			<label for="username" class="sr-only"> 로그인 아이디 </label> <input
+				type="text" id="username" name="username" class="form-control"
+				placeholder="아이디를 입력해 주세요" required autofocus> <label
+				for="password" class="sr-only"> 비밀번호 </label> <input type="password"
+				id="password" name="password" class="form-control"
+				placeholder="비밀번호를 입력해 주세요" required>
+
+			<div class="checkbox mt-2 mb-3" align="right">
+				<label> <input type="checkbox" name="remember-me">
+					Remember me
+				</label>
+			</div>
+			<button class="btn btn-lg btn-primary btn-block" type="submit">
+				로그인</button>
+			<div class="row mt-3">
+				<a class = "col-md-4" href="/signin">회원가입</a>
+				<div class = "col-md-3"></div>
+				<a class = "col-md-5">비밀번호 찾기</a>
+			</div>
+			<div class="error-message" th:if="${loginError}">
+				<span> 아이디나 패스워드가 올바르지 않습니다. </span>
+			</div>
+		</form>
+		</div>
+	</div>
+</body>
+</html>

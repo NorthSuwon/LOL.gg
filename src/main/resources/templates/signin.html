@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head th:replace="layout/Config :: common_head"></head>
+<header th:replace="layout/Header :: mainheader"></header>
+<body>
+	<div class="row">
+		<div class="col-md-3"></div>
+		<div class="container col-md-6" style="padding-top: 100px;">
+			<div class="row mt-5">
+				<div class="col-12">
+					<form method="POST" action="/signin">
+						<div class="form-group">
+							<label for="userid">ID</label> <input type="text"
+								class="form-control" id="userid" placeholder="아이디를 입력해주세요."
+								name="id" />
+						</div>
+						<div class="form-group">
+							<label for="password">Password</label> <input type="password"
+								class="form-control" id="password" placeholder="비밀번호를 입력해주세요."
+								name="password" />
+						</div>
+
+						<div class="form-group">
+							<label for="email">LOL ID</label> <input type="text"
+								class="form-control" id="email" placeholder="LOL 아이디을 입력해주세요."
+								name="email" />
+						</div>
+						<div class="form-group">
+							<label for="username">E-mail</label> <input type="text"
+								class="form-control" id="lolId" placeholder="이메일을 입력해주세요."
+								name="lolid" />
+						</div>
+
+						<button type="submit" class="btn btn-primary">회원가입</button>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3"></div>
+	</div>
+</body>
+
+</html>

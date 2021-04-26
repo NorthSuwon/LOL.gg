@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head th:replace="layout/Config :: common_head"></head>
+<header th:replace="layout/Header :: mainheader"></header>
+<body>
+    <div class="container" style="padding-top:300px;">
+        <div class="form-group">
+            <form class="row" method="post" enctype="multipart/form-data" novalidate>
+            	<div class="col-md-2"></div>
+                <input type="text" class="form-control col-md-5" id="search" placeholder="소환사명, 소환사명 …"
+                    name="summoner-search-form__text _suggest" />
+                <button class="btn btn-primary col-md-2 ml-3" type="submit" id="search">검색하기</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
