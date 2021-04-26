@@ -16,17 +16,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     	http
                 .authorizeRequests(request->
-                        request.antMatchers("/", "/login", "/signin").permitAll()
+                        request.antMatchers("/", "/login/**", "/signin/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(
                         login->login.loginPage("/login")
                         .permitAll()
                         .defaultSuccessUrl("/", false)
-                        .failureUrl("/login-error")
+                        .failureUrl("/login/error")
                 )
                 .logout(logout->logout.logoutSuccessUrl("/"))
-                .exceptionHandling(e->e.accessDeniedPage("/access-denied"))
+                .exceptionHandling(e->e.accessDeniedPage("/denied"))
                 ;
     }
 
