@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -32,16 +34,16 @@ public class User {
 	@Column(name = "USER_NUM")
 	private Long userNum;
 	
-	@Column(name = "USER_ID", length = 31)
+	@Column(name = "USER_ID", length = 255)
 	private String userId;
 	
-	@Column(name = "USER_PASSWORD", length = 31)
+	@Column(name = "USER_PASSWORD", length = 255)
 	private String userPassword;
 	
 	@Column(name = "USER_LOL_ID")
 	private String userLolId;
 	
-	@Column(name = "USER_EMAIL", length = 127)
+	@Column(name = "USER_EMAIL", length = 255)
 	private String userEmail;
 	
 	@OneToMany(mappedBy = "user", fetch=FetchType.LAZY)

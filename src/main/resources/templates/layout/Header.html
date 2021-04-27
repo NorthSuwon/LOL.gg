@@ -23,9 +23,9 @@
                         </li> -->
 			</ul>
 
-			<form class="form-inline my-3 my-lg-1">
+			<div class="form-inline my-3 my-lg-1">
 				<div sec:authorize="authenticated" class="row mr-3">
-					<a class="nav-link disabled" style="color: white;" href="#">${user.userId}
+					<a class="nav-link disabled" style="color: white;" href="#">
 						님 반갑습니다.</a>
 					<form th:action="@{/logout}" method="post">
 						<button class="btn btn-outline-success my-2 my-sm-0" type="submit">로그아웃</button>
@@ -37,7 +37,7 @@
 					<button type="button" class="btn btn-outline-success my-2 my-sm-0"
 						onclick="location.href='/login'">로그인</button>
 				</div>
-			</form>
+			</div>
 
 		</div>
 </header>
