@@ -1,19 +1,27 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head th:replace="layout/Config :: common_head"></head>
 <header th:replace="layout/Header :: mainheader"></header>
 <body>
-    <div class="container" style="padding-top:300px;">
-        <div class="form-group">
-            <form class="row" method="post" enctype="multipart/form-data" novalidate>
-            	<div class="col-md-2"></div>
-                <input type="text" class="form-control col-md-5" id="search" placeholder="소환사명, 소환사명 …"
-                    name="summoner-search-form__text _suggest" />
-                <button class="btn btn-primary col-md-2 ml-3" type="submit" id="search">검색하기</button>
-            </form>
-        </div>
-    </div>
+	<div class="container center-contents" style="padding-top: 300px;">
+		<h1 class="mb-4">LOL.gg</h1>
+		<form class="row" method="post" th:action="${search}">
+			<div class="col-3"></div>
+			<div class="input-group mb-3 col-6">
+				<input type="text" class="form-control"
+					placeholder="소환사명"
+					aria-label="소환사명" aria-describedby="basic-addon2"
+					id="summoner" name="summoner">
+				<div class="input-group-append">
+					<button class="btn btn-outline-success" type="submit">Seach</button>
+				</div>
+			</div>
+			<div class="col-3"></div>
+		</form>
+	</div>
 </body>
 
 </html>

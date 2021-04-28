@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -30,8 +32,8 @@ public class Board {
 	@Column(name = "BOARD_NUM")
 	private Long boardNum;
 	
-	@Column(name = "TITLE", length = 127)
-	private String title;
+	@Column(name = "POSITION", length = 127)
+	private String position;
 	
 	@Column(name = "CONTENT", length = 255)
 	private String content;
@@ -41,5 +43,6 @@ public class Board {
 	
 	@ManyToOne
 	@JoinColumn(name = "USER_NUM")
+	@JsonIgnore
 	private User user;
 }

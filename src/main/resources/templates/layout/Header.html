@@ -16,11 +16,8 @@
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item active"><a class="nav-link"
 					href="/predict/">전적조회<span class="sr-only">(current)</span></a></li>
-				<li class="nav-item active"><a class="nav-link" href="/board/">듀오구함<span
+				<li class="nav-item active"><a class="nav-link" href="/board/list?page=0">듀오구함<span
 						class="sr-only">(current)</span></a></li>
-				<!-- <li class="nav-item active">
-                            <a class="nav-link" href="/annotation/"><span class="sr-only">(current)</span></a>
-                        </li> -->
 			</ul>
 
 			<div class="form-inline my-3 my-lg-1">
@@ -33,8 +30,7 @@
 					</form>
 				</div>
 				<div sec:authorize="!authenticated" class="row mr-3">
-					<a class="nav-link" style="color: white;" href="/signin">회원이
-						아니신가요?</a>
+					<a class="nav-link" style="color: white;" href="/signin">회원가입</a>
 					<button type="button" class="btn btn-outline-success my-2 my-sm-0"
 						onclick="location.href='/login'">로그인</button>
 				</div>
