@@ -5,6 +5,11 @@
 
 <head th:replace="layout/Config :: common_head"></head>
 <header th:replace="layout/Header :: mainheader"></header>
+<style>
+	.no-padding {
+  		padding: 0 !important;
+	}
+</style>
 <body>
 	<div class="container center-contents" style="padding-top: 100px;">
 		<a th:href="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/spell/{spell}.png(spell=${'SummonerFlash'})}">SPELL</a><br>
@@ -14,11 +19,62 @@
 		
 		<br><br><br><br><br><br>
 		
-		<div>
-		
 		<div class="row">
-			<img th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/{champ}.png(champ=${'Aatrox'})}" class="img-thumbnail">
-		
+			<!-- 
+			<div class="col">
+				<div class="col row" style="width:140px">
+					<div class="col no-padding" style="width:50px">
+						<img th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/{champ}.png(champ=${'Aatrox'})}" class="rounded" style="width:50px">
+					</div>
+					<div class="row col" style="width:50px">
+						<div class="col no-padding" style="width:25px">
+							<img th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/spell/{spell}.png(spell=${'SummonerFlash'})}" class="rounded" style="width:25px">
+							<img th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/spell/{spell}.png(spell=${'SummonerFlash'})}" class="rounded" style="width:25px">
+						</div>
+						<div class="col no-padding" style="width:25px">
+							<img th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/spell/{spell}.png(spell=${'SummonerFlash'})}" class="rounded" style="width:25px">
+							<img th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/spell/{spell}.png(spell=${'SummonerFlash'})}" class="rounded" style="width:25px">
+						</div>
+					</div>
+				</div>
+			</div>
+			 -->
+			<div class="col row row-cols-2">
+				<img th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/{champ}.png(champ=${'Aatrox'})}" class="rounded col">
+				<div class="col row row-cols-2">
+					<img th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/spell/{spell}.png(spell=${'SummonerFlash'})}" class="rounded">
+					<img th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/spell/{spell}.png(spell=${'SummonerFlash'})}" class="rounded">
+					<img th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/spell/{spell}.png(spell=${'SummonerFlash'})}" class="rounded">
+					<img th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/spell/{spell}.png(spell=${'SummonerFlash'})}" class="rounded">
+				</div>
+			</div>
+			<div class="col-1">
+				<span th:text="@{{kill}/{death}/{assist}(kill=${10},death=${1},assist=${10})}"></span>
+			</div>
+			<div class="col-1">
+				<p th:text="@{레벨{level}(level=${10})}"/>
+				<p th:text="@{{cs}CS(cs=${10})}"/>
+			</div>
+			<div class="col row row-cols-3">
+				<img th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/{itemnum}.png(itemnum=${1001})}" class="rounded">
+				<img th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/{itemnum}.png(itemnum=${1001})}" class="rounded">
+				<img th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/{itemnum}.png(itemnum=${1001})}" class="rounded">
+				<img th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/{itemnum}.png(itemnum=${1001})}" class="rounded">
+				<img th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/{itemnum}.png(itemnum=${1001})}" class="rounded">
+				<img th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/{itemnum}.png(itemnum=${1001})}" class="rounded">
+			</div>
+			<div class="col row row-cols-2">
+				<img th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/{champ}.png(champ=${'Aatrox'})}" class="rounded">
+				<img th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/{champ}.png(champ=${'Aatrox'})}" class="rounded">
+				<img th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/{champ}.png(champ=${'Aatrox'})}" class="rounded">
+				<img th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/{champ}.png(champ=${'Aatrox'})}" class="rounded">
+				<img th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/{champ}.png(champ=${'Aatrox'})}" class="rounded">
+				<img th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/{champ}.png(champ=${'Aatrox'})}" class="rounded">
+				<img th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/{champ}.png(champ=${'Aatrox'})}" class="rounded">
+				<img th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/{champ}.png(champ=${'Aatrox'})}" class="rounded">
+				<img th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/{champ}.png(champ=${'Aatrox'})}" class="rounded">
+				<img th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/{champ}.png(champ=${'Aatrox'})}" class="rounded">
+			</div>
 		</div>
 		
 		

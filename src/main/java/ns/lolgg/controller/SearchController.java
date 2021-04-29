@@ -11,4 +11,9 @@ public class SearchController {
 		return "smDetail";
 	}
 	
+	@GetMapping("/searchTest")
+	public String searchTest() {
+		return "smDetailTest";
+	}
+	
 }
