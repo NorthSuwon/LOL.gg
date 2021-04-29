@@ -1,5 +1,8 @@
 package ns.lolgg.controller;
 
+import java.io.IOException;
+
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -32,7 +35,7 @@ public class LoginController {
     }
 
 	@PostMapping("/signin")
-	public String signin(UserRegi user) {
+	public String signin(UserRegi user) throws ParseException, IOException {
 		userService.registerUser(user.toEntity());
 		return "redirect:login";
 	}

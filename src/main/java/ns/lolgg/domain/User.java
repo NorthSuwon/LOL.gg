@@ -41,8 +41,11 @@ public class User {
 	@Column(name = "USER_LOL_ID")
 	private String userLolId;
 	
-	@Column(name = "USER_EMAIL", length = 255)
-	private String userEmail;
+	@Column(name = "PUUID")
+	private String puuid;
+	
+	@Column(name = "PROFILE_ICON_ID")
+	private int profileIconId;
 	
 	@OneToMany(mappedBy = "user", fetch=FetchType.LAZY)
 	private List<Board> boards;

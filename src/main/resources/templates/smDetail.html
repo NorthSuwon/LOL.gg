@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head th:replace="layout/Config :: common_head"></head>
+<header th:replace="layout/Header :: mainheader"></header>
+<body>
+	<div class="container center-contents" style="padding-top: 100px;">
+		<a th:href="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/spell/{spell}.png(spell=${'SummonerFlash'})}">SPELL</a><br>
+		<a th:href="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/profileicon/{iconnum}.png(iconnum=${685})}">ICON</a><br>
+		<a th:href="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/{champ}.png(champ=${'Aatrox'})}">CHAMPION</a><br>
+		<a th:href="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/{itemnum}.png(itemnum=${1001})}">ITEM</a><br>
+		
+		<br><br><br><br><br><br>
+		
+		<div>
+		
+		<div class="row">
+			<img th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/{champ}.png(champ=${'Aatrox'})}" class="img-thumbnail">
+		
+		</div>
+		
+		
+	</div>
+</body>
+
+</html>

@@ -1,7 +1,10 @@
 package ns.lolgg.dto;
 
+import java.io.IOException;
 import java.util.Set;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.ParseException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -15,17 +18,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import ns.lolgg.domain.User;
+import ns.lolgg.util.LolUtil;
 
 public class UserDTO {
-
-	@NoArgsConstructor
-	@AllArgsConstructor
-	@Getter
-	@Setter
-	public static class UserLogin {
-		private String id;
-		private String password;
-	}
 
 	@NoArgsConstructor
 	@AllArgsConstructor
@@ -35,11 +30,15 @@ public class UserDTO {
 	public static class UserRegi {
 		private String id;
 		private String password;
-		private String email;
 		private String lolid;
 
-		public User toEntity() {
-			return User.builder().userId(this.id).userPassword(this.password).userEmail(this.email)
+		public User toEntity() throws ParseException, IOException {
+			
+			JSONObject obj = LolUtil.getSummoners(this.lolid);
+			return User.builder().userId(this.id)
+					.userPassword(this.password)
+					.puuid((String) obj.get("puuid"))
+					.profileIconId((int) obj.get("profileIconId"))
 					.userLolId(this.lolid).build();
 		}
 	}

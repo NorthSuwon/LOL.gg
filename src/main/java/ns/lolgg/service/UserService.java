@@ -23,15 +23,6 @@ public class UserService implements UserDetailsService{
 		return userRepo.findByUserId(userId).orElse(null);
 	}
 
-	// 비밀번호 확인
-	public boolean checkUserPassword(User user, String password) {
-
-		if (password.equals(user.getUserPassword())) {
-			return true;
-		}
-		return false;
-	}
-
 	// 회원가입
 	public void registerUser(User user) {
 		user.setUserPassword(passwordEncoder.encode(user.getUserPassword()));
