@@ -1,8 +1,12 @@
 package ns.lolgg.domain;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import groovy.transform.builder.Builder;
 import lombok.AllArgsConstructor;
@@ -27,4 +31,6 @@ public class Match {
 	@Column(name = "GAME_DURATION")
 	private String gameDuration;
 	
+	@OneToMany(mappedBy = "match", fetch=FetchType.LAZY)
+	private List<MatchUser> matchUser;
 }
