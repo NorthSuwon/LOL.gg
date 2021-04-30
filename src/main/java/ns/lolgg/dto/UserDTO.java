@@ -39,7 +39,10 @@ public class UserDTO {
 					.userPassword(this.password)
 					.puuid((String) obj.get("puuid"))
 					.profileIconId((int) obj.get("profileIconId"))
-					.userLolId(this.lolid).build();
+					.userLolId(this.lolid)
+					.level((int) obj.get("summonerLevel"))
+					.encLolId((String) obj.get("id"))
+					.build();
 		}
 	}
 	
