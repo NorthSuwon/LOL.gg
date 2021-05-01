@@ -13,7 +13,6 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -23,7 +22,7 @@ public class LolUtil {
 	private static ResponseHandler<String> handler = new BasicResponseHandler();
 
 	// @Value("${lol.api.key}")
-	private static String key = "RGAPI-718ec56c-40fb-4d90-a41f-2193b2fda71a";
+	private static String key = "";
 
 	public static String getKey() {
 		return key;
@@ -38,7 +37,7 @@ public class LolUtil {
 		return null;
 	}
 	
-	private static List<String> stringToList(String s){
+	public static List<String> stringToList(String s){
 		
 		String[] sss = s.substring(1, s.length() - 1).split(",");
 		List<String> answer = new ArrayList<>();

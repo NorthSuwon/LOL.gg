@@ -1,5 +1,6 @@
 package ns.lolgg.domain;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -12,12 +13,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.ParseException;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import ns.lolgg.util.LolUtil;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -58,8 +63,20 @@ public class User {
 	@OneToMany(mappedBy = "user", fetch=FetchType.LAZY)
 	private List<Board> boards;
 	
+	@OneToMany(mappedBy = "user", fetch=FetchType.LAZY)
+	private List<MatchUser> matches;
+	
 	@OneToOne
 	@JoinColumn(name = "USER_TIER_NUM")
 	private UserTier userTier;
+	
+	public void refresh() throws ParseException, IOException {
+		
+		JSONObject obj = LolUtil.getSummoners(this.userLolId);
+		this.puuid = (String) obj.get("puuid");
+		this.profileIconId = (int) obj.get("profileIconId");
+		this.level = (int) obj.get("summonerLevel");
+		this.encLolId = (String) obj.get("id");
+	}
 	
 }
