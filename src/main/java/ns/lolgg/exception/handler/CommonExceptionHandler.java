@@ -10,6 +10,7 @@ public class CommonExceptionHandler {
 	@ExceptionHandler(Exception.class)
 	public String handleError(Exception e, Model model) {
 		model.addAttribute("error-message", e.getMessage());
-		return "error";
+		System.out.println(e.getMessage());
+		return "error/common";
 	}
 }

@@ -8,7 +8,7 @@
 <body>
 	<div class="container center-contents" style="padding-top: 300px;">
 		<h1 class="mb-4">LOL.gg</h1>
-		<form class="row" method="post" th:action="${search}">
+		<div class="row">
 			<div class="col-3"></div>
 			<div class="input-group mb-3 col-6">
 				<input type="text" class="form-control"
@@ -16,12 +16,16 @@
 					aria-label="소환사명" aria-describedby="basic-addon2"
 					id="summoner" name="summoner">
 				<div class="input-group-append">
-					<button class="btn btn-outline-success" type="submit">Seach</button>
+					<button class="btn btn-outline-success" onclick="go()">Seach</button>
 				</div>
 			</div>
 			<div class="col-3"></div>
-		</form>
+		</div>
 	</div>
 </body>
-
+<script type="text/javascript">
+	function go(){
+		location.href="search?id="+document.getElementById("summoner").text;
+	}
+</script>
 </html>

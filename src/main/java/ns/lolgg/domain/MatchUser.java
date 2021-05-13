@@ -1,11 +1,14 @@
 package ns.lolgg.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import groovy.transform.builder.Builder;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,7 +20,10 @@ import lombok.NoArgsConstructor;
 @Entity(name = "MATCH_USER")
 public class MatchUser {
 	
-	private int participantId;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long matchUserNum;
+	//private int participantId;
 	
 	private String championName;
 	

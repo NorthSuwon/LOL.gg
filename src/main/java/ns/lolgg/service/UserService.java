@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import ns.lolgg.dao.MatchRepository;
 import ns.lolgg.dao.UserRepository;
-import ns.lolgg.domain.Match;
 import ns.lolgg.domain.User;
 import ns.lolgg.dto.UserDTO.UserDetail;
 import ns.lolgg.util.LolUtil;
@@ -57,7 +56,6 @@ public class UserService implements UserDetailsService{
 			}
 		}
 	}
-	
 	
 	@Override
 	public UserDetail loadUserByUsername(String username) throws UsernameNotFoundException {

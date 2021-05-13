@@ -22,7 +22,7 @@ public class LolUtil {
 	private static ResponseHandler<String> handler = new BasicResponseHandler();
 
 	// @Value("${lol.api.key}")
-	private static String key = "";
+	private static String key = "RGAPI-431177fe-1750-45c7-b032-06f8d06b3e13";
 
 	public static String getKey() {
 		return key;

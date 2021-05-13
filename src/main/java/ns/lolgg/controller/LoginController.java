@@ -55,6 +55,12 @@ public class LoginController {
 	}
 	
 	@ResponseBody
+	@GetMapping("/signin/lolid/{id}")
+	public String lolIdCheck(@PathVariable("id") String id){
+		return "true";
+	}
+	
+	@ResponseBody
 	@GetMapping("/auth")
 	public Authentication auth() {
 		return SecurityContextHolder.getContext().getAuthentication();

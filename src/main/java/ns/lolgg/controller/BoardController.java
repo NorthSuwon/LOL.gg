@@ -29,6 +29,7 @@ public class BoardController {
 		
 		Page<Board> boardList = boardService.getBoardList(page);
 		model.addAttribute("pages", boardList);
+		model.addAttribute("num", page);
 		return "board";
 	}
 	

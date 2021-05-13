@@ -106,9 +106,9 @@
         				<span class="sr-only">Previous</span>
       				</a>
     			</li>
-    			<li class="page-item"><a class="page-link" href="/board/list?page=0" onclick="now(0)">1</a></li>
-    			<li class="page-item"><a class="page-link" href="/board/list?page=1" onclick="now(1)">2</a></li>
-    			<li class="page-item"><a class="page-link" href="/board/list?page=2" onclick="now(2)">3</a></li>
+    			<li class="page-item"><a class="page-link" th:href="@{/board/list?page={p}(p=${num})}" th:onclick="@{now({p}(p=${num}))}" th:text="${num+1}"></a></li>
+				<li class="page-item"><a class="page-link" th:href="@{/board/list?page={p}(p=${num+1})}" th:onclick="@{now({p}(p=${num+1}))}" th:text="${num+2}"></a></li>
+				<li class="page-item"><a class="page-link" th:href="@{/board/list?page={p}(p=${num+2})}" th:onclick="@{now({p}(p=${num+2}))}" th:text="${num+3}"></a></li>
     			<li class="page-item">
       				<a class="page-link" onclick="next(1)" aria-label="Next">
         				<span aria-hidden="true">&raquo;</span>
@@ -142,8 +142,5 @@
 			location.href = "/board/list?page=" + index;
 		}
 	}
-	
-	var index = parseInt(window.location.search.split("=")[1]);
-	console.log(index);
 </script>
 </html>
