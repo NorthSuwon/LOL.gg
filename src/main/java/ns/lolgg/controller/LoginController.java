@@ -65,7 +65,7 @@ public class LoginController {
 		User user = userService.findUserByLolId(id).orElse(null);
 		if (user==null) {
 			return "true";
-		} else if (user.getUserId()=="undefined") {
+		} else if (user.getUserId()=="!!!!!") {
 			return "true";
 		}
 		throw new UserExistedException("중복 아이디");

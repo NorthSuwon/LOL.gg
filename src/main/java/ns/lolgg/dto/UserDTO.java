@@ -13,9 +13,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 import ns.lolgg.domain.User;
 import ns.lolgg.util.LolUtil;
@@ -24,9 +22,9 @@ public class UserDTO {
 
 	@NoArgsConstructor
 	@AllArgsConstructor
-	@Getter
-	@Setter
+	@Data
 	@ToString
+	@Builder
 	public static class UserRegi {
 		private String id;
 		private String password;

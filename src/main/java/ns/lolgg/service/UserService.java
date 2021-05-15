@@ -63,6 +63,13 @@ public class UserService implements UserDetailsService{
 		}
 	}
 	
+	public User seachUser(String lolid) throws ParseException, IOException {
+		
+		JSONObject obj = LolUtil.getSummoners(lolid);
+		return userRepo.save(UserRegi.builder().id("!!!!!").lolid(lolid).password("!!!!!").build().toEntity());
+	}
+	
+	
 	@Override
 	public UserDetail loadUserByUsername(String username) throws UsernameNotFoundException {
 		return UserDetail.of(userRepo.findByUserId(username).orElseThrow(()->
