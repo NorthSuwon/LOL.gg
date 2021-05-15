@@ -8,13 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ns.lolgg.domain.User;
-import ns.lolgg.exception.UserNotExistedException;
 import ns.lolgg.service.UserService;
-import ns.lolgg.util.LolUtil;
 
 @Controller
 public class SearchController {
@@ -24,19 +21,20 @@ public class SearchController {
 	
 	@GetMapping("/search")
 	public String search(Model model, @RequestParam("id") String id) throws ParseException, IOException {
+		
 		User user = userService.findUserByLolId(id).orElse(null);
-		if (user != null) {
-			
-		} else {
-			
+		if (user == null) {
+			user = userService.searchUser(id);
 		}
-		//model.addAttribute("user", user);
-		//model.addAttribute("mathces", user.getMatches());
+		model.addAttribute("user", user);
+		model.addAttribute("matches", user.getMatches());
 		return "smDetail";
 	}
 	
 	@PostMapping("/serach/refresh")
-	public String search(@RequestParam(value = "id") String id) {
+	public String search(@RequestParam(value = "id") String id) throws ParseException, IOException {
+		
+		userService.refreshUser(userService.findUserByLolId(id).orElse(null));
 		return "redirect:/search?id="+id;
 	}
 	

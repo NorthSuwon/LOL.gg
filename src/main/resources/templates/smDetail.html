@@ -33,19 +33,18 @@
 
 			<div class="row">
 				<img
-					th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/profileicon/{iconnum}.png(iconnum=${685})}"
+					th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/profileicon/{iconnum}.png(iconnum=${user.profileIconId})}"
 					class="img-thumbnail col-2">
 				<div class="col">
-					<h1>짱태열</h1>
+					<h1 th:text="${user.userLolId}"></h1>
 				</div>
 			</div>
 			<hr>
 
 
 
-
-			<div>
-			<div class="col win">
+			<div th:each="match : ${matches}">
+			<div class="col">
 				<div class="row">
 					<div class="col-1 align-self-center one-padding text-center">
 						<p>무작위 총력전</p>

@@ -60,8 +60,7 @@ public class LoginController {
 	@GetMapping("/signin/lolid/{id}")
 	public String lolIdCheck(@PathVariable("id") String id) throws ParseException, IOException{
 		
-		System.out.println(LolUtil.getSummoners(id));
-		
+		LolUtil.getSummoners(id);
 		User user = userService.findUserByLolId(id).orElse(null);
 		if (user==null) {
 			return "true";

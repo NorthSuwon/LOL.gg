@@ -22,37 +22,36 @@ public class MatchUser {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long matchUserNum;
-	//private int participantId;
+	private Long matchUserNum;
 	
 	private String championName;
 	
-	private int kills;
-	private int deaths;
-	private int assists;
+	private Long kills;
+	private Long deaths;
+	private Long assists;
 	
 	private boolean win;
 	private boolean firstBloodKill;
-	private int maxKill;
+	private String maxKill;
 	
 	private String lane;
-	private int primaryStyle;
-	private int subStyle;
+	private Long primaryStyle;
+	private Long subStyle;
 	
-    private int summoner1Casts;
-    private int summoner1Id;
-    private int summoner2Casts;
-    private int summoner2Id;
+    private Long summoner1Casts;
+    private Long summoner1Id;
+    private Long summoner2Casts;
+    private Long summoner2Id;
 	
-	private int item0;
-	private int item1;
-	private int item2;
-	private int item3;
-	private int item4;
-	private int item5;
-	private int item6;
+	private Long item0;
+	private Long item1;
+	private Long item2;
+	private Long item3;
+	private Long item4;
+	private Long item5;
+	private Long item6;
 	
-	private int teamId;
+	private Long teamId;
 	
 	@ManyToOne
 	@JoinColumn(name = "MATCH_ID")

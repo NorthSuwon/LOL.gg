@@ -8,8 +8,8 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import groovy.transform.builder.Builder;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -26,10 +26,10 @@ public class Match {
 	private String matchId;
 	
 	@Column(name = "GAME_CREATION")
-	private String gameCreation;
+	private Long gameCreation;
 	
 	@Column(name = "GAME_DURATION")
-	private String gameDuration;
+	private Long gameDuration;
 	
 	@OneToMany(mappedBy = "match", fetch=FetchType.LAZY)
 	private List<MatchUser> matchUser;
