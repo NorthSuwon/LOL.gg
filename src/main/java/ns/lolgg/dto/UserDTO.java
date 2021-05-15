@@ -34,18 +34,14 @@ public class UserDTO {
 
 		public User toEntity() throws ParseException, IOException {
 			
-//			JSONObject obj = LolUtil.getSummoners(this.lolid);
-//			return User.builder().userId(this.id)
-//					.userPassword(this.password)
-//					.puuid((String) obj.get("puuid"))
-//					.profileIconId((int) obj.get("profileIconId"))
-//					.userLolId(this.lolid)
-//					.level((int) obj.get("summonerLevel"))
-//					.encLolId((String) obj.get("id"))
-//					.build();
+			JSONObject obj = LolUtil.getSummoners(this.lolid);
 			return User.builder().userId(this.id)
 					.userPassword(this.password)
+					.puuid((String) obj.get("puuid"))
+					.profileIconId((Long) obj.get("profileIconId"))
 					.userLolId(this.lolid)
+					.level((Long) obj.get("summonerLevel"))
+					.encLolId((String) obj.get("id"))
 					.build();
 		}
 	}

@@ -17,26 +17,20 @@
 							placeholder="아이디를 입력해주세요." name="userid" id="userid"/>
 						<button class="btn btn-primary ml-3" onclick="idCheck()">중복확인</button>
 					</div>
+					<label for="userlolidform">LOL ID</label>
+					<div id="userlolidform" class="row">
+						<input type="text" class="form-control ml-3 col-md-9 col-sm-9"
+							placeholder="롤 닉네임을 입력해주세요." name="userlolid" id="userlolid"/>
+						<button class="btn btn-primary ml-3" onclick="lolidCheck()">아이디검증</button>
+					</div>
 					<form method="POST" th:action="@{/signin}" class="mt-2" onsubmit="return checkValue()">
 						<input type="hidden" id="id" name="id" value="" required />
+						<input type="hidden" id="lolid" name="lolid" value="" required />
 						<div class="form-group">
 							<label for="password">Password</label> <input type="password"
 								class="form-control" id="password" placeholder="비밀번호를 입력해주세요."
 								name="password" required />
 						</div>
-
-						<div class="form-group">
-							<label for="email">LOL ID</label> <input type="text"
-								class="form-control" id="lolid" placeholder="LOL 아이디을 입력해주세요."
-								name="lolid" required />
-						</div>
-						<!-- 
-						<div class="form-group">
-							<label for="username">E-mail</label> <input type="email"
-								class="form-control" id="email" placeholder="이메일을 입력해주세요."
-								name="lolid" required />
-						</div>
-						 -->
 						<button type="submit" class="btn btn-primary">회원가입</button>
 					</form>
 				</div>
@@ -69,10 +63,31 @@
           });
     }
 	
+	function lolidCheck(){
+		var id = document.getElementById("userlolid").value;
+	 
+    	if (!id) {
+	        alert("아이디를 입력하지 않았습니다.");
+    	    return false;
+    	}
+    	
+    	axios.get("/signin/lolid/"+id)
+          .then((res) => {
+        	  console.log(res);
+        	  document.getElementById("lolid").value = id;
+        	  alert("가능한 아이디입니다.")
+          })
+          .catch((error) => {
+            alert("없거나 이미 등록된 아이디입니다.");
+          });
+    }
+	
 	function checkValue(){
 		var id1 = document.getElementById("userid").value;
 		var id2 = document.getElementById("id").value;
-		if (id2 && id1==id2){
+		var id3 = document.getElementById("userlolid").value;
+		var id4 = document.getElementById("lolid").value;
+		if (id2 && id3 && id1==id2 && id3==id4){
 			return true;
 		}
 		alert("아이디 중복확인을 해주세요.")

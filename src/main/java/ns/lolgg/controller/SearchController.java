@@ -20,7 +20,7 @@ public class SearchController {
 	
 	@GetMapping("/search")
 	public String search(Model model, @RequestParam("id") String id) {
-		//User user = userService.findUserByLolId(id).orElseThrow(()-> new UserNotExistedException(id));
+		User user = userService.findUserByLolId(id).orElse(null);
 		//model.addAttribute("user", user);
 		//model.addAttribute("mathces", user.getMatches());
 		return "smDetail";

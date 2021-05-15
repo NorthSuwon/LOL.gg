@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import ns.lolgg.domain.User;
 import ns.lolgg.dto.UserDTO.UserRegi;
 import ns.lolgg.exception.UserExistedException;
 import ns.lolgg.service.UserService;
+import ns.lolgg.util.LolUtil;
 
 @Controller
 public class LoginController {
@@ -36,7 +38,7 @@ public class LoginController {
 
 	@PostMapping("/signin")
 	public String signin(UserRegi user) throws ParseException, IOException {
-		userService.registerUser(user.toEntity());
+		userService.registerUser(user);
 		return "redirect:login";
 	}
 	
@@ -56,8 +58,17 @@ public class LoginController {
 	
 	@ResponseBody
 	@GetMapping("/signin/lolid/{id}")
-	public String lolIdCheck(@PathVariable("id") String id){
-		return "true";
+	public String lolIdCheck(@PathVariable("id") String id) throws ParseException, IOException{
+		
+		System.out.println(LolUtil.getSummoners(id));
+		
+		User user = userService.findUserByLolId(id).orElse(null);
+		if (user==null) {
+			return "true";
+		} else if (user.getUserId()=="undefined") {
+			return "true";
+		}
+		throw new UserExistedException("중복 아이디");
 	}
 	
 	@ResponseBody

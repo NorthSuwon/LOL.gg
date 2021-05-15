@@ -55,10 +55,10 @@ public class User {
 	private String encLolId;
 	
 	@Column(name = "PROFILE_ICON_ID")
-	private int profileIconId;
+	private Long profileIconId;
 	
 	@Column(name = "LOL_LEVEL")
-	private int level;
+	private Long level;
 	
 	@OneToMany(mappedBy = "user", fetch=FetchType.LAZY)
 	private List<Board> boards;
@@ -74,8 +74,8 @@ public class User {
 		
 		JSONObject obj = LolUtil.getSummoners(this.userLolId);
 		this.puuid = (String) obj.get("puuid");
-		this.profileIconId = (int) obj.get("profileIconId");
-		this.level = (int) obj.get("summonerLevel");
+		this.profileIconId = (Long) obj.get("profileIconId");
+		this.level = (Long) obj.get("summonerLevel");
 		this.encLolId = (String) obj.get("id");
 	}
 	

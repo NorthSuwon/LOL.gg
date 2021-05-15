@@ -16,6 +16,7 @@ import ns.lolgg.dao.MatchRepository;
 import ns.lolgg.dao.UserRepository;
 import ns.lolgg.domain.User;
 import ns.lolgg.dto.UserDTO.UserDetail;
+import ns.lolgg.dto.UserDTO.UserRegi;
 import ns.lolgg.util.LolUtil;
 
 @Service
@@ -34,8 +35,13 @@ public class UserService implements UserDetailsService{
 	}
 
 	// 회원가입
-	public void registerUser(User user) {
-		user.setUserPassword(passwordEncoder.encode(user.getUserPassword()));
+	public void registerUser(UserRegi userRegi) throws ParseException, IOException {
+		User user = userRepo.findByUserLolId(userRegi.getLolid()).orElse(null);
+		if (user == null) {
+			user = userRegi.toEntity();
+		}
+		user.setUserId(userRegi.getId());
+		user.setUserPassword(passwordEncoder.encode(userRegi.getPassword()));
 		userRepo.save(user);
 	}
 	
