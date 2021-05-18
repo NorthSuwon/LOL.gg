@@ -33,4 +33,5 @@ public class Match {
 	
 	@OneToMany(mappedBy = "match", fetch=FetchType.LAZY)
 	private List<MatchUser> matchUser;
+	
 }

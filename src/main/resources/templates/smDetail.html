@@ -53,7 +53,7 @@
 					<div class="col-2 align-self-center">
 						<div class="row row-cols-2">
 							<img
-								th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/{champ}.png(champ=${'Aatrox'})}"
+								th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/{champ}.png(champ=${'match.championName'})}"
 								class="rounded col one-padding" style="height: auto">
 							<div class="col">
 								<div class="row row-cols-2">
@@ -76,7 +76,7 @@
 					<div class="col row text-center">
 						<div class="col-6 align-self-center">
 							<span
-								th:text="@{{kill}/{death}/{assist}(kill=${10},death=${1},assist=${10})}"></span>
+								th:text="@{{kill}/{death}/{assist}(kill=${match.kills},death=${match.deaths},assist=${match.assists})}"></span>
 						</div>
 						<div class="col-6 align-self-center">
 							<p th:text="@{레벨{level}(level=${10})}" />
@@ -86,17 +86,17 @@
 					<div class="col-2 row align-self-center">
 						<div class="col row row-cols-3" style="padding-right: 10px">
 							<img
-								th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/{itemnum}.png(itemnum=${1001})}"
+								th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/{itemnum}.png(itemnum=${match.item1})}"
 								class="img-thumbnail col no-padding"> <img
-								th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/{itemnum}.png(itemnum=${1001})}"
+								th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/{itemnum}.png(itemnum=${match.item2})}"
 								class="img-thumbnail col no-padding"> <img
-								th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/{itemnum}.png(itemnum=${1001})}"
+								th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/{itemnum}.png(itemnum=${match.item3})}"
 								class="img-thumbnail col no-padding"> <img
-								th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/{itemnum}.png(itemnum=${1001})}"
+								th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/{itemnum}.png(itemnum=${match.item4})}"
 								class="img-thumbnail col no-padding"> <img
-								th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/{itemnum}.png(itemnum=${1001})}"
+								th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/{itemnum}.png(itemnum=${match.item5})}"
 								class="img-thumbnail col no-padding"> <img
-								th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/{itemnum}.png(itemnum=${1001})}"
+								th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/{itemnum}.png(itemnum=${match.item6})}"
 								class="img-thumbnail col no-padding">
 						</div>
 						<div class="col-1"></div>

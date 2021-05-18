@@ -60,4 +60,5 @@ public class MatchUser {
 	@ManyToOne
 	@JoinColumn(name = "USER_NUM")
 	private User user;
+	
 }

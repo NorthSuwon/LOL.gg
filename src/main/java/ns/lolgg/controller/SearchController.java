@@ -26,6 +26,7 @@ public class SearchController {
 		if (user == null) {
 			user = userService.searchUser(id);
 		}
+		
 		model.addAttribute("user", user);
 		model.addAttribute("matches", user.getMatches());
 		return "smDetail";

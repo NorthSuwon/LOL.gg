@@ -39,11 +39,9 @@ public class LolUtil {
 	
 	public static List<String> stringToList(String s){
 		
-		String[] sss = s.substring(1, s.length() - 1).split(",");
 		List<String> answer = new ArrayList<>();
-		int len = sss.length;
-		for (int i = 0; i < len; i++) {
-			answer.add(sss[i].substring(1, sss[i].length() - 1));
+		for (String ss : s.substring(1, s.length() - 1).split(",")) {
+			answer.add(ss.substring(1, ss.length() - 1));
 		}
 		return answer;
 	}
