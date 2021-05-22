@@ -62,8 +62,9 @@ class LoLggApplicationTests {
 		JSONObject obj = (JSONObject) LolUtil.getMatchDetail(matchId);
 		
 		JSONObject info = (JSONObject) obj.get("info");
-		//JSONObject metadata = (JSONObject) obj.get("metadata");
+		JSONObject metadata = (JSONObject) obj.get("metadata");
 		//List<String> participants = LolUtil.stringToList((String) metadata.get("participants"));
+		System.out.println(metadata.get("participants"));
 		
 		JSONArray participantsInfo = (JSONArray) info.get("participants");
 		int len = participantsInfo.size();

@@ -37,141 +37,156 @@
 					class="img-thumbnail col-2">
 				<div class="col">
 					<h1 th:text="${user.userLolId}"></h1>
+					<br>
+					<form method="POST" th:action="@{/serach/refresh}">
+						<input type="hidden" id="id" name="id"
+							th:value="${user.userLolId}">
+						<button type="submit" class="btn btn-outline-success btn-lg">갱신하기</button>
+					</form>
 				</div>
+
 			</div>
 			<hr>
-
-
 
 			<div th:each="match : ${matches}">
-			<div class="col">
-				<div class="row">
-					<div class="col-1 align-self-center one-padding text-center">
-						<p>무작위 총력전</p>
-						<p>승리</p>
-					</div>
-					<div class="col-2 align-self-center">
-						<div class="row row-cols-2">
-							<img
-								th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/{champ}.png(champ=${'match.championName'})}"
-								class="rounded col one-padding" style="height: auto">
+				<div class="col">
+					<div class="row">
+						<div class="col-1 align-self-center one-padding text-center">
+							<p th:if="${match.win}">승리</p>
+							<p th:if="${!match.win}">패배</p>
+						</div>
+						<div class="col-2 align-self-center">
+							<div class="row row-cols-2">
+								<img
+									th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/{champ}.png(champ=${match.championName})}"
+									class="rounded col one-padding" style="height: auto">
+								<div class="col">
+									<div class="row row-cols-2">
+										<img
+											th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/spell/{spell}.png(spell=${'SummonerFlash'})}"
+											class="img-thumbnail col no-padding" style="height: auto">
+										<img
+											th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/spell/{spell}.png(spell=${'SummonerFlash'})}"
+											class="img-thumbnail col no-padding" style="height: auto">
+										<img
+											th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/spell/{spell}.png(spell=${'SummonerFlash'})}"
+											class="img-thumbnail col no-padding" style="height: auto">
+										<img
+											th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/spell/{spell}.png(spell=${'SummonerFlash'})}"
+											class="img-thumbnail col no-padding" style="height: auto">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col row text-center">
+							<div class="col-6 align-self-center">
+								<span
+									th:text="@{{kill}/{death}/{assist}(kill=${match.kills},death=${match.deaths},assist=${match.assists})}"></span>
+							</div>
+							<div class="col-6 align-self-center">
+								<p th:text="@{레벨{level}(level=${match.level})}" />
+								<p th:text="@{{cs}CS(cs=${match.cs})}" />
+							</div>
+						</div>
+						<div class="col-2 row align-self-center">
+							<div class="col-10 row row-cols-3" style="padding-right: 10px">
+								<img th:if="${match.item0!=0}"
+									th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/{itemnum}.png(itemnum=${match.item0})}"
+									class="img-thumbnail col no-padding"> <img
+									th:if="${match.item1!=0}"
+									th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/{itemnum}.png(itemnum=${match.item1})}"
+									class="img-thumbnail col no-padding"> <img
+									th:if="${match.item2!=0}"
+									th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/{itemnum}.png(itemnum=${match.item2})}"
+									class="img-thumbnail col no-padding"> <img
+									th:if="${match.item3!=0}"
+									th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/{itemnum}.png(itemnum=${match.item3})}"
+									class="img-thumbnail col no-padding"> <img
+									th:if="${match.item4!=0}"
+									th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/{itemnum}.png(itemnum=${match.item4})}"
+									class="img-thumbnail col no-padding"> <img
+									th:if="${match.item5!=0}"
+									th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/{itemnum}.png(itemnum=${match.item5})}"
+									class="img-thumbnail col no-padding">
+							</div>
 							<div class="col">
-								<div class="row row-cols-2">
-									<img
-										th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/spell/{spell}.png(spell=${'SummonerFlash'})}"
-										class="img-thumbnail col no-padding" style="height: auto">
-									<img
-										th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/spell/{spell}.png(spell=${'SummonerFlash'})}"
-										class="img-thumbnail col no-padding" style="height: auto">
-									<img
-										th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/spell/{spell}.png(spell=${'SummonerFlash'})}"
-										class="img-thumbnail col no-padding" style="height: auto">
-									<img
-										th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/spell/{spell}.png(spell=${'SummonerFlash'})}"
-										class="img-thumbnail col no-padding" style="height: auto">
-								</div>
+								<img
+									th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/{itemnum}.png(itemnum=${match.item6})}"
+									class="img-thumbnail col no-padding">
 							</div>
+
 						</div>
-					</div>
-					<div class="col row text-center">
-						<div class="col-6 align-self-center">
-							<span
-								th:text="@{{kill}/{death}/{assist}(kill=${match.kills},death=${match.deaths},assist=${match.assists})}"></span>
-						</div>
-						<div class="col-6 align-self-center">
-							<p th:text="@{레벨{level}(level=${10})}" />
-							<p th:text="@{{cs}CS(cs=${10})}" />
-						</div>
-					</div>
-					<div class="col-2 row align-self-center">
-						<div class="col row row-cols-3" style="padding-right: 10px">
-							<img
-								th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/{itemnum}.png(itemnum=${match.item1})}"
-								class="img-thumbnail col no-padding"> <img
-								th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/{itemnum}.png(itemnum=${match.item2})}"
-								class="img-thumbnail col no-padding"> <img
-								th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/{itemnum}.png(itemnum=${match.item3})}"
-								class="img-thumbnail col no-padding"> <img
-								th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/{itemnum}.png(itemnum=${match.item4})}"
-								class="img-thumbnail col no-padding"> <img
-								th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/{itemnum}.png(itemnum=${match.item5})}"
-								class="img-thumbnail col no-padding"> <img
-								th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/{itemnum}.png(itemnum=${match.item6})}"
-								class="img-thumbnail col no-padding">
-						</div>
-						<div class="col-1"></div>
-					</div>
-					<div class="col-5 align-self-center">
-						<div class="col">
-							<div class="row">
-								<div class="col row row-cols-2">
-									<img
-										th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/{champ}.png(champ=${'Aatrox'})}"
-										class="rounded col col-3 one-padding" style="height: auto">
-									<span th:text="${'짱태열'}" class="col col-9 one-padding"></span>
+						<div class="col-5 align-self-center">
+							<div class="col">
+								<div class="row">
+									<div class="col row row-cols-2">
+										<img
+											th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/{champ}.png(champ=${'Aatrox'})}"
+											class="rounded col col-3 one-padding" style="height: auto">
+										<span th:text="${'짱태열'}" class="col col-9 one-padding"></span>
+									</div>
+									<div class="col row row-cols-2">
+										<img
+											th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/{champ}.png(champ=${'Aatrox'})}"
+											class="rounded col col-3 one-padding" style="height: auto">
+										<span th:text="${'짱태열'}" class="col col-9 one-padding"></span>
+									</div>
+									<div class="col row row-cols-2">
+										<img
+											th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/{champ}.png(champ=${'Aatrox'})}"
+											class="rounded col col-3 one-padding" style="height: auto">
+										<span th:text="${'짱태열'}" class="col col-9 one-padding"></span>
+									</div>
+									<div class="col row row-cols-2">
+										<img
+											th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/{champ}.png(champ=${'Aatrox'})}"
+											class="rounded col col-3 one-padding" style="height: auto">
+										<span th:text="${'짱태열'}" class="col col-9 one-padding"></span>
+									</div>
+									<div class="col row row-cols-2">
+										<img
+											th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/{champ}.png(champ=${'Aatrox'})}"
+											class="rounded col col-3 one-padding" style="height: auto">
+										<span th:text="${'짱태열'}" class="col col-9 one-padding"></span>
+									</div>
 								</div>
-								<div class="col row row-cols-2">
-									<img
-										th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/{champ}.png(champ=${'Aatrox'})}"
-										class="rounded col col-3 one-padding" style="height: auto">
-									<span th:text="${'짱태열'}" class="col col-9 one-padding"></span>
-								</div>
-								<div class="col row row-cols-2">
-									<img
-										th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/{champ}.png(champ=${'Aatrox'})}"
-										class="rounded col col-3 one-padding" style="height: auto">
-									<span th:text="${'짱태열'}" class="col col-9 one-padding"></span>
-								</div>
-								<div class="col row row-cols-2">
-									<img
-										th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/{champ}.png(champ=${'Aatrox'})}"
-										class="rounded col col-3 one-padding" style="height: auto">
-									<span th:text="${'짱태열'}" class="col col-9 one-padding"></span>
-								</div>
-								<div class="col row row-cols-2">
-									<img
-										th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/{champ}.png(champ=${'Aatrox'})}"
-										class="rounded col col-3 one-padding" style="height: auto">
-									<span th:text="${'짱태열'}" class="col col-9 one-padding"></span>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col row row-cols-2">
-									<img
-										th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/{champ}.png(champ=${'Aatrox'})}"
-										class="rounded col col-3 one-padding" style="height: auto">
-									<span th:text="${'짱태열'}" class="col col-9 one-padding"></span>
-								</div>
-								<div class="col row row-cols-2">
-									<img
-										th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/{champ}.png(champ=${'Aatrox'})}"
-										class="rounded col col-3 one-padding" style="height: auto">
-									<span th:text="${'짱태열'}" class="col col-9 one-padding"></span>
-								</div>
-								<div class="col row row-cols-2">
-									<img
-										th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/{champ}.png(champ=${'Aatrox'})}"
-										class="rounded col col-3 one-padding" style="height: auto">
-									<span th:text="${'짱태열'}" class="col col-9 one-padding"></span>
-								</div>
-								<div class="col row row-cols-2">
-									<img
-										th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/{champ}.png(champ=${'Aatrox'})}"
-										class="rounded col col-3 one-padding" style="height: auto">
-									<span th:text="${'짱태열'}" class="col col-9 one-padding"></span>
-								</div>
-								<div class="col row row-cols-2">
-									<img
-										th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/{champ}.png(champ=${'Aatrox'})}"
-										class="rounded col col-3 one-padding" style="height: auto">
-									<span th:text="${'짱태열'}" class="col col-9 one-padding"></span>
+								<div class="row">
+									<div class="col row row-cols-2">
+										<img
+											th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/{champ}.png(champ=${'Aatrox'})}"
+											class="rounded col col-3 one-padding" style="height: auto">
+										<span th:text="${'짱태열'}" class="col col-9 one-padding"></span>
+									</div>
+									<div class="col row row-cols-2">
+										<img
+											th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/{champ}.png(champ=${'Aatrox'})}"
+											class="rounded col col-3 one-padding" style="height: auto">
+										<span th:text="${'짱태열'}" class="col col-9 one-padding"></span>
+									</div>
+									<div class="col row row-cols-2">
+										<img
+											th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/{champ}.png(champ=${'Aatrox'})}"
+											class="rounded col col-3 one-padding" style="height: auto">
+										<span th:text="${'짱태열'}" class="col col-9 one-padding"></span>
+									</div>
+									<div class="col row row-cols-2">
+										<img
+											th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/{champ}.png(champ=${'Aatrox'})}"
+											class="rounded col col-3 one-padding" style="height: auto">
+										<span th:text="${'짱태열'}" class="col col-9 one-padding"></span>
+									</div>
+									<div class="col row row-cols-2">
+										<img
+											th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/{champ}.png(champ=${'Aatrox'})}"
+											class="rounded col col-3 one-padding" style="height: auto">
+										<span th:text="${'짱태열'}" class="col col-9 one-padding"></span>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<hr>
+				<hr>
 			</div>
 		</div>
 	</div>

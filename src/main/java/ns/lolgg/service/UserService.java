@@ -69,7 +69,7 @@ public class UserService implements UserDetailsService{
 		}
 	}
 	
-	private void refreshMatch(JSONObject obj, String matchId) {
+	private void refreshMatch(JSONObject obj, String matchId) throws ParseException, IOException {
 		
 		JSONObject info = (JSONObject) obj.get("info");
 		Match match = Match.builder().matchId(matchId)
@@ -78,60 +78,86 @@ public class UserService implements UserDetailsService{
 			.build();
 		matchRepo.save(match);
 		
-		JSONObject metadata = (JSONObject) obj.get("metadata");
-		List<String> participants = LolUtil.stringToList((String) metadata.get("participants"));
-		
 		JSONArray participantsInfo = (JSONArray) info.get("participants");
+		String[] kill = {"NONE", "doubleKills", "tripleKills", "quadraKills", "pentaKills"};
 		int len = participantsInfo.size();
 		for (int idx=0; idx<len; idx++) {
 			
 			JSONObject detail = (JSONObject) participantsInfo.get(idx);
-
-			String[] kill = {"pentaKills", "quadraKills", "tripleKills", "doubleKills"};
-			String maxKill = "NONE";
-			for (String k : kill) {
-				if ((Long) detail.get(k)>0) {
-					maxKill = k;
-					break;
-				}
-			}
+			System.out.println((Long) detail.get("largestMultiKill"));
+			Long killIdx = (Long) detail.get("largestMultiKill");
 			
-			User user = userRepo.findByUserLolId(participants.get(idx)).get();
-			MatchUser matchUser = MatchUser.builder()
-				.championName((String) detail.get("championName"))
-				.kills((Long) detail.get("kills"))
-				.deaths((Long) detail.get("deaths"))
-				.assists((Long) detail.get("assists"))
-				.win((boolean) detail.get("win"))
-				.firstBloodKill((boolean) detail.get("firstBloodKill"))
-				.maxKill(maxKill)
-				.lane((String) detail.get("lane"))
-				.primaryStyle((Long) detail.get("primaryStyle"))
-				.subStyle((Long) detail.get("subStyle"))
-				.summoner1Casts((Long) detail.get("summoner1Casts"))
-				.summoner1Id((Long) detail.get("summoner1Id"))
-				.summoner2Casts((Long) detail.get("summoner2Casts"))
-				.summoner2Id((Long) detail.get("summoner2Id"))
-				.item0((Long) detail.get("item0"))
-				.item1((Long) detail.get("item1"))
-				.item2((Long) detail.get("item2"))
-				.item3((Long) detail.get("item3"))
-				.item4((Long) detail.get("item4"))
-				.item5((Long) detail.get("item5"))
-				.item6((Long) detail.get("item6"))
-				.teamId((Long) detail.get("teamId"))
-				.match(match)
-				.user(user)
-				.build();
-			matchUserRepo.save(matchUser);
+			System.out.println((String) detail.get("summonerName"));
+			User user = userRepo.findByUserLolId((String) detail.get("summonerName")).orElse(null);
+			
+			
+			
+//			MatchUser matchUser = MatchUser.builder()
+//				.championName((String) detail.get("championName"))
+//				.level((Long) detail.get("champLevel"))
+//				.cs((Long) detail.get("totalMinionsKilled"))
+//				.kills((Long) detail.get("kills"))
+//				.deaths((Long) detail.get("deaths"))
+//				.assists((Long) detail.get("assists"))
+//				.win((boolean) detail.get("win"))
+//				.firstBloodKill((boolean) detail.get("firstBloodKill"))
+//				.maxKill(kill[killIdx.intValue()])
+//				.lane((String) detail.get("lane"))
+//				.primaryStyle((Long) detail.get("primaryStyle"))
+//				.subStyle((Long) detail.get("subStyle"))
+//				.summoner1Casts((Long) detail.get("summoner1Casts"))
+//				.summoner1Id((Long) detail.get("summoner1Id"))
+//				.summoner2Casts((Long) detail.get("summoner2Casts"))
+//				.summoner2Id((Long) detail.get("summoner2Id"))
+//				.item0((Long) detail.get("item0"))
+//				.item1((Long) detail.get("item1"))
+//				.item2((Long) detail.get("item2"))
+//				.item3((Long) detail.get("item3"))
+//				.item4((Long) detail.get("item4"))
+//				.item5((Long) detail.get("item5"))
+//				.item6((Long) detail.get("item6"))
+//				.teamId((Long) detail.get("teamId"))
+//				.match(match)
+//				.user(user)
+//				.build();
+
 		}
-		
+		//matchUserRepo.save(null)
 	}
 	
 	public User searchUser(String lolid) throws ParseException, IOException {
-		LolUtil.getSummoners(lolid);
-		return userRepo.save(UserRegi.builder().id("!!!!!").lolid(lolid).password("!!!!!").build().toEntity());
+		JSONObject obj;
+		try {
+			obj = LolUtil.getSummoners(lolid);
+		} catch(Exception e) {
+			return null;
+		}
+		return userRepo.save(
+				User.builder()
+					.userId("!!!!!")
+					.userPassword("!!!!!")
+					.puuid((String) obj.get("puuid"))
+					.profileIconId((Long) obj.get("profileIconId"))
+					.userLolId((String) obj.get("name"))
+					.level((Long) obj.get("summonerLevel"))
+					.encLolId((String) obj.get("id"))
+					.build()
+				);
 	}
+	
+	public User searchPuuid(String puuid) throws ParseException, IOException {
+		JSONObject obj = LolUtil.getSummonersByPuuid(puuid);
+		return User.builder()
+					.userId("!!!!!")
+					.userPassword("!!!!!")
+					.puuid((String) obj.get("puuid"))
+					.profileIconId((Long) obj.get("profileIconId"))
+					.userLolId((String) obj.get("name"))
+					.level((Long) obj.get("summonerLevel"))
+					.encLolId((String) obj.get("id"))
+					.build();
+	}
+	
 	
 	@Override
 	public UserDetail loadUserByUsername(String username) throws UsernameNotFoundException {

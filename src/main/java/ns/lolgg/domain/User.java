@@ -72,8 +72,8 @@ public class User {
 	
 	public void refresh() throws ParseException, IOException {
 		
-		JSONObject obj = LolUtil.getSummoners(this.userLolId);
-		this.puuid = (String) obj.get("puuid");
+		JSONObject obj = LolUtil.getSummonersByPuuid(this.puuid);
+		this.userLolId = (String) obj.get("name");
 		this.profileIconId = (Long) obj.get("profileIconId");
 		this.level = (Long) obj.get("summonerLevel");
 		this.encLolId = (String) obj.get("id");

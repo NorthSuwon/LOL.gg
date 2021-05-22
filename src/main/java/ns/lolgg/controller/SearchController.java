@@ -33,9 +33,8 @@ public class SearchController {
 	}
 	
 	@PostMapping("/serach/refresh")
-	public String search(@RequestParam(value = "id") String id) throws ParseException, IOException {
-		
-		userService.refreshUser(userService.findUserByLolId(id).orElse(null));
+	public String search(String id) throws ParseException, IOException {
+		userService.refreshUser(userService.findUserByLolId(id).orElseThrow());
 		return "redirect:/search?id="+id;
 	}
 	

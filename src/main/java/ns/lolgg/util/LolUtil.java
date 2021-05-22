@@ -22,7 +22,7 @@ public class LolUtil {
 	private static ResponseHandler<String> handler = new BasicResponseHandler();
 
 	// @Value("${lol.api.key}")
-	private static String key = "";
+	private static String key = "RGAPI-8ac6aaa4-f51d-4cfe-8ff5-758cfb8f6cab";
 
 	public static String getKey() {
 		return key;
@@ -55,6 +55,17 @@ public class LolUtil {
 
 		return (JSONObject) new JSONParser().parse(common(
 				new HttpGet("https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/" + userName + "?api_key=" + key)));
+	}
+	
+	/**
+	 * LOL 닉네임을 통해 Summoner Id의 Stat을 반환한다.
+	 * @return Summoner Stat Json 객체
+	 * @param LOL 닉네임
+	 */
+	public static JSONObject getSummonersByPuuid(String puuid) throws ParseException, IOException {
+
+		return (JSONObject) new JSONParser().parse(common(
+				new HttpGet("https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-puuid/" + puuid + "?api_key=" + key)));
 	}
 	
 	/**

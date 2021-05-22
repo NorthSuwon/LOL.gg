@@ -25,6 +25,8 @@ public class MatchUser {
 	private Long matchUserNum;
 	
 	private String championName;
+	private Long level;
+	private Long cs;
 	
 	private Long kills;
 	private Long deaths;

@@ -58,13 +58,15 @@ public class LoginController {
 	
 	@ResponseBody
 	@GetMapping("/signin/lolid/{id}")
-	public String lolIdCheck(@PathVariable("id") String id) throws ParseException, IOException{
+	public String lolIdCheck(@PathVariable("id") String id) throws ParseException, IOException, Exception{
 		
-		LolUtil.getSummoners(id);
+		if (LolUtil.getSummoners(id)==null) {
+			throw new Exception();
+		}
 		User user = userService.findUserByLolId(id).orElse(null);
 		if (user==null) {
 			return "true";
-		} else if (user.getUserId()=="!!!!!") {
+		} else if (user.getUserId().equals("!!!!!")) {
 			return "true";
 		}
 		throw new UserExistedException("중복 아이디");
