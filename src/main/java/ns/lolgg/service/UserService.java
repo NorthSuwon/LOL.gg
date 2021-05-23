@@ -1,6 +1,7 @@
 package ns.lolgg.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,6 +33,9 @@ public class UserService implements UserDetailsService{
 	private MatchRepository matchRepo;
 	@Autowired
 	private MatchUserRepository matchUserRepo;
+	@Autowired
+	private LolUtil lolUtil;
+	
 	
 	private static final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -57,13 +61,13 @@ public class UserService implements UserDetailsService{
 	
 	public void refreshUser(User user) throws ParseException, IOException {
 		
-		user.refresh();
-		List<String> matchIds = LolUtil.getSummonerMatchList(user.getPuuid());
+		user.refresh(lolUtil.getSummonersByPuuid(user.getPuuid()));
+		List<String> matchIds = lolUtil.getSummonerMatchList(user.getPuuid());
 		int len = matchIds.size();
 		for (int i=0; i<len; i++) {
 			String matchId = matchIds.get(i);
 			if (matchRepo.findById(matchId).isEmpty()) {
-				JSONObject obj = LolUtil.getMatchDetail(matchId);
+				JSONObject obj = lolUtil.getMatchDetail(matchId);
 				refreshMatch(obj, matchId);
 			}
 		}
@@ -76,21 +80,30 @@ public class UserService implements UserDetailsService{
 			.gameCreation((Long) info.get("gameCreation"))
 			.gameDuration((Long) info.get("gameDuration"))
 			.build();
-		matchRepo.save(match);
+		
 		
 		JSONArray participantsInfo = (JSONArray) info.get("participants");
 		String[] kill = {"NONE", "doubleKills", "tripleKills", "quadraKills", "pentaKills"};
+		
+		List<User> users = new ArrayList<>();
+		
 		int len = participantsInfo.size();
 		for (int idx=0; idx<len; idx++) {
 			
 			JSONObject detail = (JSONObject) participantsInfo.get(idx);
-			System.out.println((Long) detail.get("largestMultiKill"));
 			Long killIdx = (Long) detail.get("largestMultiKill");
 			
 			System.out.println((String) detail.get("summonerName"));
 			User user = userRepo.findByUserLolId((String) detail.get("summonerName")).orElse(null);
-			
-			
+			if (user==null) {
+				try{
+					user = searchPuuid((String) detail.get("summonerId"));
+					users.add(user);
+					System.out.println(user.getUserLolId());
+				} catch (Exception e){
+					continue;
+				}
+			}
 			
 //			MatchUser matchUser = MatchUser.builder()
 //				.championName((String) detail.get("championName"))
@@ -122,14 +135,17 @@ public class UserService implements UserDetailsService{
 //				.build();
 
 		}
+		matchRepo.save(match);
+		userRepo.saveAll(users);
 		//matchUserRepo.save(null)
 	}
 	
 	public User searchUser(String lolid) throws ParseException, IOException {
 		JSONObject obj;
 		try {
-			obj = LolUtil.getSummoners(lolid);
+			obj = lolUtil.getSummoners(lolid);
 		} catch(Exception e) {
+			System.out.println(e.getMessage());
 			return null;
 		}
 		return userRepo.save(
@@ -146,7 +162,7 @@ public class UserService implements UserDetailsService{
 	}
 	
 	public User searchPuuid(String puuid) throws ParseException, IOException {
-		JSONObject obj = LolUtil.getSummonersByPuuid(puuid);
+		JSONObject obj = lolUtil.getSummonersByPuuid(puuid);
 		return User.builder()
 					.userId("!!!!!")
 					.userPassword("!!!!!")

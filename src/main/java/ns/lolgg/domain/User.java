@@ -70,9 +70,8 @@ public class User {
 	@JoinColumn(name = "USER_TIER_NUM")
 	private UserTier userTier;
 	
-	public void refresh() throws ParseException, IOException {
+	public void refresh(JSONObject obj) throws ParseException, IOException {
 		
-		JSONObject obj = LolUtil.getSummonersByPuuid(this.puuid);
 		this.userLolId = (String) obj.get("name");
 		this.profileIconId = (Long) obj.get("profileIconId");
 		this.level = (Long) obj.get("summonerLevel");

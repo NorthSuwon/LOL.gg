@@ -24,7 +24,10 @@ public class LoginController {
 
 	@Autowired
 	private UserService userService;
-
+	@Autowired
+	private LolUtil lolUtil;
+	
+	
 	@GetMapping("/login")
 	public String loginpage() {
 		return "login";
@@ -60,7 +63,7 @@ public class LoginController {
 	@GetMapping("/signin/lolid/{id}")
 	public String lolIdCheck(@PathVariable("id") String id) throws ParseException, IOException, Exception{
 		
-		if (LolUtil.getSummoners(id)==null) {
+		if (lolUtil.getSummoners(id)==null) {
 			throw new Exception();
 		}
 		User user = userService.findUserByLolId(id).orElse(null);

@@ -13,22 +13,23 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
 public class LolUtil {
 
-	private static HttpClient client = HttpClientBuilder.create().build();
-	private static ResponseHandler<String> handler = new BasicResponseHandler();
+	private HttpClient client = HttpClientBuilder.create().build();
+	private ResponseHandler<String> handler = new BasicResponseHandler();
 
-	// @Value("${lol.api.key}")
-	private static String key = "RGAPI-8ac6aaa4-f51d-4cfe-8ff5-758cfb8f6cab";
+	@Value("${lol.api.key}")
+	private String key;
 
-	public static String getKey() {
+	public String getKey() {
 		return key;
 	}
 	
-	private static String common(HttpGet getRequest) throws IOException {
+	private String common(HttpGet getRequest) throws IOException {
 
 		HttpResponse response = client.execute(getRequest);
 		if (response.getStatusLine().getStatusCode() == 200) {
@@ -37,7 +38,7 @@ public class LolUtil {
 		return null;
 	}
 	
-	public static List<String> stringToList(String s){
+	public List<String> stringToList(String s){
 		
 		List<String> answer = new ArrayList<>();
 		for (String ss : s.substring(1, s.length() - 1).split(",")) {
@@ -51,7 +52,7 @@ public class LolUtil {
 	 * @return Summoner Stat Json 객체
 	 * @param LOL 닉네임
 	 */
-	public static JSONObject getSummoners(String userName) throws ParseException, IOException {
+	public JSONObject getSummoners(String userName) throws ParseException, IOException {
 
 		return (JSONObject) new JSONParser().parse(common(
 				new HttpGet("https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/" + userName + "?api_key=" + key)));
@@ -62,7 +63,7 @@ public class LolUtil {
 	 * @return Summoner Stat Json 객체
 	 * @param LOL 닉네임
 	 */
-	public static JSONObject getSummonersByPuuid(String puuid) throws ParseException, IOException {
+	public JSONObject getSummonersByPuuid(String puuid) throws ParseException, IOException {
 
 		return (JSONObject) new JSONParser().parse(common(
 				new HttpGet("https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-puuid/" + puuid + "?api_key=" + key)));
@@ -73,7 +74,7 @@ public class LolUtil {
 	 * @return 20개의 Match Id List 
 	 * @param Summoner의 puuid
 	 */
-	public static List<String> getSummonerMatchList(String puuid) throws IOException {
+	public List<String> getSummonerMatchList(String puuid) throws IOException {
 
 		String s = common(new HttpGet(
 				"https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/" + puuid + "/ids?api_key=" + key));
@@ -85,7 +86,7 @@ public class LolUtil {
 	 * @return Match detatil Json Object
 	 * @param Match Id
 	 */
-	public static JSONObject getMatchDetail(String matchId) throws ParseException, IOException {
+	public JSONObject getMatchDetail(String matchId) throws ParseException, IOException {
 		
 		return (JSONObject) new JSONParser().parse(common(
 				new HttpGet("https://asia.api.riotgames.com/lol/match/v5/matches/" + matchId + "?api_key=" + key)));
