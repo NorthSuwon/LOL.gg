@@ -37,13 +37,11 @@ public class MatchUser {
 	private String maxKill;
 	
 	private String lane;
-	private Long primaryStyle;
-	private Long subStyle;
+	private String primaryStyle;
+	private String subStyle;
 	
-    private Long summoner1Casts;
-    private Long summoner1Id;
-    private Long summoner2Casts;
-    private Long summoner2Id;
+    private String summoner1Id;
+    private String summoner2Id;
 	
 	private Long item0;
 	private Long item1;

@@ -40,7 +40,7 @@ public class LoginController {
     }
 
 	@PostMapping("/signin")
-	public String signin(UserRegi user) throws ParseException, IOException {
+	public String signin(UserRegi user) throws Exception {
 		userService.registerUser(user);
 		return "redirect:login";
 	}

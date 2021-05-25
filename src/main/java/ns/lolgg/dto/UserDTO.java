@@ -30,9 +30,7 @@ public class UserDTO {
 		private String password;
 		private String lolid;
 
-		public User toEntity() throws ParseException, IOException {
-			
-			JSONObject obj = LolUtil.getSummoners(this.lolid);
+		public User toEntity(JSONObject obj) throws ParseException, IOException {
 			return User.builder().userId(this.id)
 					.userPassword(this.password)
 					.puuid((String) obj.get("puuid"))

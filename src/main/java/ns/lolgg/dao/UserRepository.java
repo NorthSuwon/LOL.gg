@@ -13,4 +13,6 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	
 	// 롤아이디로 user 찾기
 	Optional<User> findByUserLolId(String userLolId);
+	
+	Optional<User> findByPuuid(String puuid);
 }

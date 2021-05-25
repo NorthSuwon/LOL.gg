@@ -25,7 +25,7 @@ public class SearchController {
 	public String search(Model model, @RequestParam("id") String id) throws ParseException, IOException {
 		
 		User user = userService.findUserByLolId(id).orElse(null);
-		if (user == null) {
+		if (user==null) {
 			user = userService.searchUser(id);
 		}
 		
@@ -36,8 +36,8 @@ public class SearchController {
 	
 	@PostMapping("/serach/refresh")
 	public RedirectView search(String id) throws ParseException, IOException {
-		userService.refreshUser(userService.findUserByLolId(id).orElseThrow());
-		return new RedirectView("/search?id=" + URLEncoder.encode(id, "UTF-8"));
+		User user = userService.refreshUser(userService.findUserByLolId(id).orElseThrow());
+		return new RedirectView("/search?id=" + URLEncoder.encode(user.getUserLolId(), "UTF-8"));
 	}
 	
 }
