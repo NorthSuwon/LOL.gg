@@ -76,9 +76,9 @@
 			<thead>
 				<tr>
 					<th style="width:15%">소환사명</th>
-					<th style="width:10%">주포지션</th>
-					<th style="width:5%">티어</th>
-					<th style="width:15%">모스트</th>
+					<th style="width:8%">주포지션</th>
+					<th style="width:10%">티어</th>
+					<th style="width:12%">모스트</th>
 					<th style="width:5%">승률</th>
 					<th style="width:5%">KDA</th>
 					<th style="width:10%">등록일시</th>
@@ -89,9 +89,10 @@
 				<tr th:each="Board:${pages}" th:object="${Board}">
 					<td th:text="*{user.userLolId}"></td>
 					<td th:text="*{position}"></td>
-					<td th:text="*{user.}"></td>
+					<td th:text="*{user.userTier.soloTier + ' '+ user.userTier.soloRank}"></td>
 					<td></td>
-					<td></td>
+					<td th:if="${Board.user.userTier.soloLoss!=0}" th:text="${100 * Board.user.userTier.soloWin / Board.user.userTier.soloLoss}+'%'"></td>
+					<td th:if="${Board.user.userTier.soloLoss==0}" >0%</td>
 					<td></td>
 					<td th:text="*{createDate}"></td>
 					<td th:text="*{content}"></td>

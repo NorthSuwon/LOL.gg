@@ -46,14 +46,14 @@ public class UserTier {
 	private Long fiveLoss;
 	
 	public UserTier() {
-		this.soloTier = "None";
-		this.soloRank = "None";
+		this.soloTier = "UNRANKED";
+		this.soloRank = "";
 		this.soloPoint = 0L;
 		this.soloWin = 0L;
 		this.soloLoss = 0L;
 		
-		this.fiveTier = "None";
-		this.fiveRank = "None";
+		this.fiveTier = "UNRANKED";
+		this.fiveRank = "";
 		this.fivePoint = 0L;
 		this.fiveWin = 0L;
 		this.fiveLoss = 0L;

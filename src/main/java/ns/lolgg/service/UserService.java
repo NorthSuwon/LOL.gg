@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import ns.lolgg.dao.MatchRepository;
 import ns.lolgg.dao.MatchUserRepository;
 import ns.lolgg.dao.UserRepository;
+import ns.lolgg.dao.UserTierRepository;
 import ns.lolgg.domain.Match;
 import ns.lolgg.domain.MatchUser;
 import ns.lolgg.domain.User;
@@ -37,6 +38,9 @@ public class UserService implements UserDetailsService{
 	@Autowired
 	private MatchUserRepository matchUserRepo;
 	@Autowired
+	private UserTierRepository userTierRepo;
+	
+	@Autowired
 	private LolUtil lolUtil;
 
 	private static final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -48,7 +52,7 @@ public class UserService implements UserDetailsService{
 
 	// 회원가입
 	public void registerUser(UserRegi userRegi) throws Exception {
-		User user = userRepo.findByUserLolId(userRegi.getLolid()).orElse(null);
+		User user = userRepo.findByUserLolId(userRegi.getLolid().toUpperCase()).orElse(null);
 		if (user == null) {
 			user = userRegi.toEntity(lolUtil.getSummoners(userRegi.getLolid()));
 		}
@@ -160,6 +164,10 @@ public class UserService implements UserDetailsService{
 		if (obj == null) {
 			return null;
 		}
+		
+		UserTier userTier = new UserTier();
+		userTierRepo.save(userTier);
+		
 		return userRepo.save(
 				User.builder()
 					.userId("!!!!!")
@@ -170,7 +178,7 @@ public class UserService implements UserDetailsService{
 					.level((Long) obj.get("summonerLevel"))
 					.encLolId((String) obj.get("id"))
 					.userTier(
-							new UserTier()
+							userTier
 					)
 					.build()
 				);
@@ -178,6 +186,8 @@ public class UserService implements UserDetailsService{
 	
 	public User searchPuuid(String puuid) throws ParseException, IOException {
 		JSONObject obj = lolUtil.getSummonersByPuuid(puuid);
+		UserTier userTier = new UserTier();
+		userTierRepo.save(userTier);
 		return User.builder()
 					.userId("!!!!!")
 					.userPassword("!!!!!")
@@ -187,7 +197,7 @@ public class UserService implements UserDetailsService{
 					.level((Long) obj.get("summonerLevel"))
 					.encLolId((String) obj.get("id"))
 					.userTier(
-							new UserTier()
+							userTier
 					)
 					.build();
 	}

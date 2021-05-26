@@ -29,10 +29,14 @@ public class SearchController {
 			user = userService.searchUser(id);
 		}
 		
-		model.addAttribute("user", user);
-		model.addAttribute("matches", user.getMatches());
+		if (user != null) {
+			model.addAttribute("user", user);
+			model.addAttribute("matches", user.getMatches());
+		}
 		return "smDetail";
 	}
+	
+	
 	
 	@PostMapping("/serach/refresh")
 	public RedirectView search(String id) throws ParseException, IOException {

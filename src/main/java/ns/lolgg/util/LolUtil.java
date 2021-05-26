@@ -111,7 +111,7 @@ public class LolUtil {
 	public JSONObject getSummoners(String userName) {
 		try {
 			return (JSONObject) new JSONParser().parse(common(
-					new HttpGet("https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/" + userName + "?api_key=" + key)));
+					new HttpGet("https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/" + String.join("%20", userName.split(" ")) + "?api_key=" + key)));
 		} catch(Exception e) {
 			return null;
 		}
