@@ -33,6 +33,18 @@ public class Board {
 	@Column(name = "POSITION", length = 127)
 	private String position;
 	
+	@Column(name = "KDA")
+	private String kda;
+	
+	@Column(name = "MOST1")
+	private String most1;
+	
+	@Column(name = "MOST2")
+	private String most2;
+	
+	@Column(name = "MOST3")
+	private String most3;
+	
 	@Column(name = "CONTENT", length = 255)
 	private String content;
 	

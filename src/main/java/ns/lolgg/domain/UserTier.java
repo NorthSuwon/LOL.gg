@@ -63,14 +63,13 @@ public class UserTier {
 		
 		try {
 			JSONObject solo = (JSONObject) obj.get(0);
-			JSONObject five = (JSONObject) obj.get(1);
-			
 			this.soloTier = (String) solo.get("tier");
 			this.soloRank = (String) solo.get("rank");
 			this.soloPoint = (Long) solo.get("leaguePoints");
 			this.soloWin = (Long) solo.get("wins");
 			this.soloLoss = (Long) solo.get("losses");
 			
+			JSONObject five = (JSONObject) obj.get(1);
 			this.fiveTier = (String) five.get("tier");
 			this.fiveRank = (String) five.get("rank");
 			this.fivePoint = (Long) five.get("leaguePoints");

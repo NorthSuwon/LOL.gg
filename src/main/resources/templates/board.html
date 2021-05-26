@@ -13,6 +13,9 @@
 	td.on {
 	    background-color: silver;
 	}
+	.one-padding {
+		padding: 1px !important;
+	}
 </style>
 <header th:replace="layout/Header :: mainheader"></header>
 <body>
@@ -77,23 +80,33 @@
 				<tr>
 					<th style="width:15%">소환사명</th>
 					<th style="width:8%">주포지션</th>
-					<th style="width:10%">티어</th>
+					<th style="width:13%">티어</th>
 					<th style="width:12%">모스트</th>
 					<th style="width:5%">승률</th>
 					<th style="width:5%">KDA</th>
 					<th style="width:10%">등록일시</th>
-					<th style="width:30%">코멘트</th>
+					<th style="width:25%">코멘트</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr th:each="Board:${pages}" th:object="${Board}">
-					<td th:text="*{user.userLolId}"></td>
+					<td><a th:text="*{user.userLolId}" th:href="@{/search(id=*{user.userLolId})}" style="color:black;"></a></td>
 					<td th:text="*{position}"></td>
-					<td th:text="*{user.userTier.soloTier + ' '+ user.userTier.soloRank}"></td>
-					<td></td>
-					<td th:if="${Board.user.userTier.soloLoss!=0}" th:text="${100 * Board.user.userTier.soloWin / Board.user.userTier.soloLoss}+'%'"></td>
+					<td th:text="*{user.userTier.soloTier + ' '+ user.userTier.soloRank}" style="font-size:15px"></td>
+					<td>
+						<img th:if="${Board.most1!='None'}"
+							th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/{champ}.png(champ=*{most1})}"
+							class="rounded col one-padding" style="height: 35px; width: 35px">
+						<img th:if="${Board.most2!='None'}"
+							th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/{champ}.png(champ=*{most2})}"
+							class="rounded col one-padding" style="height: 35px; width: 35px">
+						<img th:if="${Board.most3!='None'}"
+							th:src="@{http://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/{champ}.png(champ=*{most3})}"
+							class="rounded col one-padding" style="height: 35px; width: 35px">
+					</td>
+					<td th:if="${Board.user.userTier.soloLoss!=0}" th:text="${100 * Board.user.userTier.soloWin / (Board.user.userTier.soloLoss+ Board.user.userTier.soloWin)}+'%'"></td>
 					<td th:if="${Board.user.userTier.soloLoss==0}" >0%</td>
-					<td></td>
+					<td th:text="*{kda}"></td>
 					<td th:text="*{createDate}"></td>
 					<td th:text="*{content}"></td>
 				</tr>

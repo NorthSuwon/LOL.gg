@@ -2,9 +2,7 @@ package ns.lolgg.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import org.json.simple.JSONArray;
@@ -58,6 +56,14 @@ public class UserService implements UserDetailsService{
 		}
 		user.setUserId(userRegi.getId());
 		user.setUserPassword(passwordEncoder.encode(userRegi.getPassword()));
+		
+		
+		UserTier userTier = new UserTier();
+		userTier.refresh(lolUtil.getUserTier(user.getEncLolId()));
+		
+		userTierRepo.save(userTier);
+		user.setUserTier(userTier);
+		
 		userRepo.save(user);
 	}
 	

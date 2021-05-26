@@ -19,8 +19,15 @@ public class BoardDTO {
 		private String content;
 
 		public static Board toEntity(BoardRegi board, User user) {
-			return Board.builder().position(board.getPosition()).content(board.getContent()).createDate(LocalDate.now())
-					.user(user).build();
+			return Board.builder()
+					.position(board.getPosition())
+					.most1("None")
+					.most2("None")
+					.most3("None")
+					.content(board.getContent())
+					.createDate(LocalDate.now())
+					.user(user)
+					.build();
 		}
 	}
 }
